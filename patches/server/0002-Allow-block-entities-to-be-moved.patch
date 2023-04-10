@@ -1,0 +1,33 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: trainb0y <trainb0ydev@gmail.com>
+Date: Mon, 10 Apr 2023 16:53:57 -0600
+Subject: [PATCH] Allow block entities to be moved
+
+
+diff --git a/src/main/java/net/minecraft/world/level/block/entity/BlockEntity.java b/src/main/java/net/minecraft/world/level/block/entity/BlockEntity.java
+index 1b248db497500aa6bd346b306dcb908af77626f3..dca83683d0ae401e6b4dfb6eaec9e1778532c37e 100644
+--- a/src/main/java/net/minecraft/world/level/block/entity/BlockEntity.java
++++ b/src/main/java/net/minecraft/world/level/block/entity/BlockEntity.java
+@@ -38,7 +38,7 @@ public abstract class BlockEntity {
+     private final BlockEntityType<?> type;
+     @Nullable
+     protected Level level;
+-    protected final BlockPos worldPosition;
++    protected BlockPos worldPosition; // Nebula
+     protected boolean remove;
+     private BlockState blockState;
+ 
+@@ -181,6 +181,13 @@ public abstract class BlockEntity {
+         return this.worldPosition;
+     }
+ 
++    // Nebula start - movable block entities
++    public void setBlockPos(BlockPos pos) {
++        this.worldPosition = pos;
++        setChanged();
++    }
++    // Nebula end
++
+     public BlockState getBlockState() {
+         return this.blockState;
+     }
