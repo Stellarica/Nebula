@@ -2,6 +2,7 @@ import io.papermc.paperweight.util.constants.PAPERCLIP_CONFIG
 
 plugins {
     java
+    `maven-publish`
     id("com.github.johnrengelman.shadow") version "8.1.0" apply false
     id("io.papermc.paperweight.patcher") version "1.5.4"
 }
@@ -11,12 +12,11 @@ repositories {
     maven("https://papermc.io/repo/repository/maven-public/") {
         content { onlyForConfigurations(PAPERCLIP_CONFIG) }
     }
-    maven("https://maven.quiltmc.org/repository/release/")
 }
 
 dependencies {
     remapper("net.fabricmc:tiny-remapper:0.8.6:fat")
-    decompiler("org.quiltmc:quiltflower:1.9.0")
+    decompiler("net.minecraftforge:forgeflower:2.0.627.2")
     paperclip("io.papermc:paperclip:3.0.3")
 }
 
@@ -34,6 +34,23 @@ allprojects {
         options.encoding = "UTF-8"
         options.release.set(17)
     }
+
+    publishing {
+        repositories {
+            maven("https://repo.stellarica.net/snapshots") {
+                name = "Stellarica"
+                credentials(PasswordCredentials::class)
+            }
+        }
+    }
+}
+
+publishing {
+    publications.create<MavenPublication>("devBundle") {
+        artifact(tasks.generateDevelopmentBundle) {
+            artifactId = "dev-bundle"
+        }
+    }
 }
 
 subprojects {
@@ -48,7 +65,7 @@ paperweight {
     serverProject.set(project(":nebula-server"))
 
     remapRepo.set("https://repo.papermc.io/repository/maven-public/")
-    decompileRepo.set("https://maven.quiltmc.org/repository/release/")
+    decompileRepo.set("https://files.minecraftforge.net/maven/")
 
     usePaperUpstream(providers.gradleProperty("paperCommit")) {
         withPaperPatcher {
@@ -59,4 +76,15 @@ paperweight {
             serverOutputDir.set(layout.projectDirectory.dir("nebula-server"))
         }
     }
+}
+
+tasks.generateDevelopmentBundle {
+    apiCoordinates.set("net.stellarica.nebula:nebula-api")
+    mojangApiCoordinates.set("io.papermc.paper:paper-mojangapi")
+    libraryRepositories.set(
+        listOf(
+            "https://repo.maven.apache.org/maven2/",
+            "https://repo.papermc.io/repository/maven-public/",
+        )
+    )
 }
