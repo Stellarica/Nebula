@@ -1,0 +1,101 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: trainb0y <trainb0ydev@gmail.com>
+Date: Mon, 10 Apr 2023 19:00:31 -0600
+Subject: [PATCH] Disable note block features
+
+
+diff --git a/src/main/java/net/minecraft/world/level/block/NoteBlock.java b/src/main/java/net/minecraft/world/level/block/NoteBlock.java
+index 50ead76879398222a76f26c36e98800d2d1af167..24720e6d6f165f92e346da871705815bdb16434d 100644
+--- a/src/main/java/net/minecraft/world/level/block/NoteBlock.java
++++ b/src/main/java/net/minecraft/world/level/block/NoteBlock.java
+@@ -49,6 +49,7 @@ public class NoteBlock extends Block {
+     }
+ 
+     private BlockState setInstrument(LevelAccessor world, BlockPos pos, BlockState state) {
++        /* Nebula - disable note block features
+         if (NoteBlock.isFeatureFlagEnabled(world)) {
+             BlockState iblockdata1 = world.getBlockState(pos.above());
+ 
+@@ -58,11 +59,13 @@ public class NoteBlock extends Block {
+         } else {
+             return (BlockState) state.setValue(NoteBlock.INSTRUMENT, NoteBlockInstrument.byStateBelow(world.getBlockState(pos.below())));
+         }
++         */
++        return state; // Nebula
+     }
+ 
+     @Override
+     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+-        return this.setInstrument(ctx.getLevel(), ctx.getClickedPos(), this.defaultBlockState());
++        return this.defaultBlockState(); // Nebula - disable note block features
+     }
+ 
+     @Override
+@@ -74,6 +77,7 @@ public class NoteBlock extends Block {
+ 
+     @Override
+     public void neighborChanged(BlockState state, Level world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
++        /* Nebula - disable note block features
+         boolean flag1 = world.hasNeighborSignal(pos);
+ 
+         if (flag1 != (Boolean) state.getValue(NoteBlock.POWERED)) {
+@@ -84,10 +88,11 @@ public class NoteBlock extends Block {
+ 
+             world.setBlock(pos, (BlockState) state.setValue(NoteBlock.POWERED, flag1), 3);
+         }
+-
++        */
+     }
+ 
+     private void playNote(@Nullable Entity entity, BlockState state, Level world, BlockPos pos) {
++        /* Nebula - disable note block features
+         if (!((NoteBlockInstrument) state.getValue(NoteBlock.INSTRUMENT)).requiresAirAbove() || world.getBlockState(pos.above()).isAir()) {
+             // CraftBukkit start
+             // org.bukkit.event.block.NotePlayEvent event = org.bukkit.craftbukkit.event.CraftEventFactory.callNotePlayEvent(world, pos, state.getValue(NoteBlock.INSTRUMENT), state.getValue(NoteBlock.NOTE));
+@@ -99,11 +104,12 @@ public class NoteBlock extends Block {
+             world.blockEvent(pos, this, 0, 0);
+             world.gameEvent(entity, GameEvent.NOTE_BLOCK_PLAY, pos);
+         }
+-
++        */
+     }
+ 
+     @Override
+     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
++        /* Nebula - disable note block features
+         if (NoteBlock.isFeatureFlagEnabled(world)) {
+             ItemStack itemstack = player.getItemInHand(hand);
+ 
+@@ -121,18 +127,23 @@ public class NoteBlock extends Block {
+             player.awardStat(Stats.TUNE_NOTEBLOCK);
+             return InteractionResult.CONSUME;
+         }
++        */
++        return InteractionResult.PASS; // Nebula - disable note block features
+     }
+ 
+     @Override
+     public void attack(BlockState state, Level world, BlockPos pos, Player player) {
++        /* Nebula - disable note block features
+         if (!world.isClientSide) {
+             this.playNote(player, state, world, pos);
+             player.awardStat(Stats.PLAY_NOTEBLOCK);
+         }
++         */
+     }
+ 
+     @Override
+     public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int type, int data) {
++         /* Nebula - disable note block features
+         // Paper start - move NotePlayEvent call to fix instrument/note changes
+         org.bukkit.event.block.NotePlayEvent event = org.bukkit.craftbukkit.event.CraftEventFactory.callNotePlayEvent(world, pos, state.getValue(INSTRUMENT), state.getValue(NOTE));
+         if (event.isCancelled()) return false;
+@@ -165,6 +176,8 @@ public class NoteBlock extends Block {
+ 
+         world.playSeededSound((Player) null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, org.bukkit.craftbukkit.block.data.CraftBlockData.toNMS(event.getInstrument(), NoteBlockInstrument.class).getSoundEvent(), SoundSource.RECORDS, 3.0F, f, world.random.nextLong()); // Paper
+         return true;
++        */
++        return false; // Nebula
+     }
+ 
+     @Nullable
