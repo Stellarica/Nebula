@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: trainb0y <trainb0ydev@gmail.com>
+Date: Sun, 16 Apr 2023 09:04:51 -0600
+Subject: [PATCH] Disable copper oxidation
+
+
+diff --git a/src/main/java/net/minecraft/world/level/block/WeatheringCopper.java b/src/main/java/net/minecraft/world/level/block/WeatheringCopper.java
+index 16bd93606ac4a9c34108a92dd4b98cb4600221d9..6413e1b02dec9937858db0e5ab6c8ae54713b45c 100644
+--- a/src/main/java/net/minecraft/world/level/block/WeatheringCopper.java
++++ b/src/main/java/net/minecraft/world/level/block/WeatheringCopper.java
+@@ -45,9 +45,13 @@ public interface WeatheringCopper extends ChangeOverTimeBlock<WeatheringCopper.W
+ 
+     @Override
+     default Optional<BlockState> getNext(BlockState state) {
++        /* Nebula start - disable copper oxidation
+         return getNext(state.getBlock()).map((block) -> {
+             return block.withPropertiesOf(state);
+         });
++         */
++        return Optional.of(state);
++        // Nebula end
+     }
+ 
+     @Override
