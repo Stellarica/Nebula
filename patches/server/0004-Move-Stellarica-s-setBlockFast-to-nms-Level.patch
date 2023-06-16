@@ -5,10 +5,10 @@ Subject: [PATCH] Move Stellarica's setBlockFast to nms Level
 
 
 diff --git a/src/main/java/net/minecraft/world/level/Level.java b/src/main/java/net/minecraft/world/level/Level.java
-index 973ecd50f9cb6b86c353586e84d15dcb118ccb60..ec2ac1696d8e6fa790b3e7308c494ac48d9318c0 100644
+index 147d802d9207e358fdb2d1c7806fc2f634dcfd98..aaa03447cda8652c6e58badb7e13e94c780e756f 100644
 --- a/src/main/java/net/minecraft/world/level/Level.java
 +++ b/src/main/java/net/minecraft/world/level/Level.java
-@@ -621,6 +621,28 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
+@@ -614,6 +614,28 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
          }
      }
  

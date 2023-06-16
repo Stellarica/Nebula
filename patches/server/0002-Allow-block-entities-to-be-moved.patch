@@ -5,10 +5,10 @@ Subject: [PATCH] Allow block entities to be moved
 
 
 diff --git a/src/main/java/net/minecraft/world/level/block/entity/BlockEntity.java b/src/main/java/net/minecraft/world/level/block/entity/BlockEntity.java
-index 1b248db497500aa6bd346b306dcb908af77626f3..dca83683d0ae401e6b4dfb6eaec9e1778532c37e 100644
+index 370a25d2deb54f10a35ee24d9e7e92fbfde60edf..e24418a75ce01dcaf9a458f7bf91cbe5a2256b69 100644
 --- a/src/main/java/net/minecraft/world/level/block/entity/BlockEntity.java
 +++ b/src/main/java/net/minecraft/world/level/block/entity/BlockEntity.java
-@@ -38,7 +38,7 @@ public abstract class BlockEntity {
+@@ -37,7 +37,7 @@ public abstract class BlockEntity {
      private final BlockEntityType<?> type;
      @Nullable
      protected Level level;
@@ -17,7 +17,7 @@ index 1b248db497500aa6bd346b306dcb908af77626f3..dca83683d0ae401e6b4dfb6eaec9e177
      protected boolean remove;
      private BlockState blockState;
  
-@@ -181,6 +181,13 @@ public abstract class BlockEntity {
+@@ -180,6 +180,13 @@ public abstract class BlockEntity {
          return this.worldPosition;
      }
  
