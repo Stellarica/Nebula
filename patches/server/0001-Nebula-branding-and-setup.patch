@@ -5,7 +5,7 @@ Subject: [PATCH] Nebula branding and setup
 
 
 diff --git a/build.gradle.kts b/build.gradle.kts
-index 57f2c414dbfe127c193002fbc8eeb22e94e9cb55..0cb3d7d7d5bc64d98d27be1e80d4a62fc61c099d 100644
+index 683159586641dd9aa42ae96fa51602469755723f..ec72707669928312b1d3526f956f0f29b2cb1a56 100644
 --- a/build.gradle.kts
 +++ b/build.gradle.kts
 @@ -13,8 +13,12 @@ configurations.named(log4jPlugins.compileClasspathConfigurationName) {
@@ -16,7 +16,7 @@ index 57f2c414dbfe127c193002fbc8eeb22e94e9cb55..0cb3d7d7d5bc64d98d27be1e80d4a62f
 -    implementation(project(":paper-mojangapi"))
 +    implementation(project(":nebula-api")) // Nebula // Paper
 +    // Nebula start
-+    implementation("io.papermc.paper:paper-mojangapi:1.19.2-R0.1-SNAPSHOT") {
++    implementation("io.papermc.paper:paper-mojangapi:1.20.2-R0.1-SNAPSHOT") {
 +        exclude("io.papermc.paper", "paper-api")
 +    }
 +    // Nebula end
@@ -33,10 +33,10 @@ index 57f2c414dbfe127c193002fbc8eeb22e94e9cb55..0cb3d7d7d5bc64d98d27be1e80d4a62f
              "Specification-Title" to "Bukkit",
              "Specification-Version" to project.version,
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 3238cbcba567b1242c77e41f6b6f19a8d157fb4e..8eddcf76a073098def8ebaadcf9de47d55f701c5 100644
+index 97745f0bab8d82d397c6c2a5775aed92bca0a034..9dda78d49ef1ffcdaf71bf3871a18f7e9443ad48 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
-@@ -1693,7 +1693,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -1697,7 +1697,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
  
      @DontObfuscate
      public String getServerModName() {
@@ -46,10 +46,10 @@ index 3238cbcba567b1242c77e41f6b6f19a8d157fb4e..8eddcf76a073098def8ebaadcf9de47d
  
      public SystemReport fillSystemReport(SystemReport details) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index a05c1bc8874ef5e380544a6a344c848e37da49c4..dc3350259da8f7a552170834d844d6d517493ce0 100644
+index fcd5096d64edfaf6bce3ecce8c9b9afb84462786..f1ed3932cef005d278f1e9506420e006155db78c 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-@@ -264,7 +264,7 @@ import javax.annotation.Nullable; // Paper
+@@ -267,7 +267,7 @@ import javax.annotation.Nullable; // Paper
  import javax.annotation.Nonnull; // Paper
  
  public final class CraftServer implements Server {
