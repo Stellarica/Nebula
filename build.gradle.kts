@@ -4,7 +4,7 @@ plugins {
     java
     `maven-publish`
     id("com.github.johnrengelman.shadow") version "8.1.1" apply false
-    id("io.papermc.paperweight.patcher") version "1.5.6"
+    id("io.papermc.paperweight.patcher") version "1.5.11"
 }
 
 repositories {
@@ -32,7 +32,7 @@ allprojects {
 
     tasks.withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
-        //options.release.set(17)
+        options.release.set(17)
     }
 
     publishing {

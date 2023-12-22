@@ -5,10 +5,10 @@ Subject: [PATCH] Disable note block features
 
 
 diff --git a/src/main/java/net/minecraft/world/level/block/NoteBlock.java b/src/main/java/net/minecraft/world/level/block/NoteBlock.java
-index e46d84750bdd7c940f400efda226e12a3fdc3848..9886300e7a7526ed274efb4ffa6822928b13f86b 100644
+index ff16075fbfe664c73a46bc4b002450867974114e..dbed33d9511134f200518231c2bd9608c50e4032 100644
 --- a/src/main/java/net/minecraft/world/level/block/NoteBlock.java
 +++ b/src/main/java/net/minecraft/world/level/block/NoteBlock.java
-@@ -44,6 +44,7 @@ public class NoteBlock extends Block {
+@@ -51,6 +51,7 @@ public class NoteBlock extends Block {
      }
  
      private BlockState setInstrument(LevelAccessor world, BlockPos pos, BlockState state) {
@@ -16,7 +16,7 @@ index e46d84750bdd7c940f400efda226e12a3fdc3848..9886300e7a7526ed274efb4ffa682292
          NoteBlockInstrument blockpropertyinstrument = world.getBlockState(pos.above()).instrument();
  
          if (blockpropertyinstrument.worksAboveNoteBlock()) {
-@@ -54,12 +55,13 @@ public class NoteBlock extends Block {
+@@ -61,12 +62,13 @@ public class NoteBlock extends Block {
  
              return (BlockState) state.setValue(NoteBlock.INSTRUMENT, blockpropertyinstrument2);
          }
@@ -32,7 +32,7 @@ index e46d84750bdd7c940f400efda226e12a3fdc3848..9886300e7a7526ed274efb4ffa682292
      }
  
      @Override
-@@ -72,6 +74,7 @@ public class NoteBlock extends Block {
+@@ -79,6 +81,7 @@ public class NoteBlock extends Block {
  
      @Override
      public void neighborChanged(BlockState state, Level world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
@@ -40,7 +40,7 @@ index e46d84750bdd7c940f400efda226e12a3fdc3848..9886300e7a7526ed274efb4ffa682292
          if (io.papermc.paper.configuration.GlobalConfiguration.get().blockUpdates.disableNoteblockUpdates) return; // Paper - prevent noteblock powered-state from updating
          boolean flag1 = world.hasNeighborSignal(pos);
  
-@@ -83,10 +86,11 @@ public class NoteBlock extends Block {
+@@ -90,10 +93,11 @@ public class NoteBlock extends Block {
  
              world.setBlock(pos, (BlockState) state.setValue(NoteBlock.POWERED, flag1), 3);
          }
@@ -53,7 +53,7 @@ index e46d84750bdd7c940f400efda226e12a3fdc3848..9886300e7a7526ed274efb4ffa682292
          if (((NoteBlockInstrument) state.getValue(NoteBlock.INSTRUMENT)).worksAboveNoteBlock() || world.getBlockState(pos.above()).isAir()) {
              // CraftBukkit start
              // org.bukkit.event.block.NotePlayEvent event = org.bukkit.craftbukkit.event.CraftEventFactory.callNotePlayEvent(world, pos, state.getValue(NoteBlock.INSTRUMENT), state.getValue(NoteBlock.NOTE));
-@@ -98,11 +102,12 @@ public class NoteBlock extends Block {
+@@ -105,11 +109,12 @@ public class NoteBlock extends Block {
              world.blockEvent(pos, this, 0, 0);
              world.gameEvent(entity, GameEvent.NOTE_BLOCK_PLAY, pos);
          }
@@ -67,7 +67,7 @@ index e46d84750bdd7c940f400efda226e12a3fdc3848..9886300e7a7526ed274efb4ffa682292
          ItemStack itemstack = player.getItemInHand(hand);
  
          if (itemstack.is(ItemTags.NOTE_BLOCK_TOP_INSTRUMENTS) && hit.getDirection() == Direction.UP) {
-@@ -116,14 +121,18 @@ public class NoteBlock extends Block {
+@@ -123,14 +128,18 @@ public class NoteBlock extends Block {
              player.awardStat(Stats.TUNE_NOTEBLOCK);
              return InteractionResult.CONSUME;
          }
@@ -86,7 +86,7 @@ index e46d84750bdd7c940f400efda226e12a3fdc3848..9886300e7a7526ed274efb4ffa682292
      }
  
      public static float getPitchFromNote(int note) {
-@@ -132,6 +141,7 @@ public class NoteBlock extends Block {
+@@ -139,6 +148,7 @@ public class NoteBlock extends Block {
  
      @Override
      public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int type, int data) {
@@ -94,7 +94,7 @@ index e46d84750bdd7c940f400efda226e12a3fdc3848..9886300e7a7526ed274efb4ffa682292
          NoteBlockInstrument blockpropertyinstrument = (NoteBlockInstrument) state.getValue(NoteBlock.INSTRUMENT);
          // Paper start - move NotePlayEvent call to fix instrument/note changes
          org.bukkit.event.block.NotePlayEvent event = org.bukkit.craftbukkit.event.CraftEventFactory.callNotePlayEvent(world, pos, blockpropertyinstrument, state.getValue(NOTE));
-@@ -164,6 +174,8 @@ public class NoteBlock extends Block {
+@@ -171,6 +181,8 @@ public class NoteBlock extends Block {
  
          world.playSeededSound((Player) null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, holder, SoundSource.RECORDS, 3.0F, f, world.random.nextLong());
          return true;

@@ -5,10 +5,10 @@ Subject: [PATCH] Disable copper oxidation
 
 
 diff --git a/src/main/java/net/minecraft/world/level/block/WeatheringCopper.java b/src/main/java/net/minecraft/world/level/block/WeatheringCopper.java
-index 16bd93606ac4a9c34108a92dd4b98cb4600221d9..6413e1b02dec9937858db0e5ab6c8ae54713b45c 100644
+index 8d59c30edfa80ab2c4cfc66b7ba06143afa99e3f..ced6cb93e8067a5fdf27aecd21031e482ae12e96 100644
 --- a/src/main/java/net/minecraft/world/level/block/WeatheringCopper.java
 +++ b/src/main/java/net/minecraft/world/level/block/WeatheringCopper.java
-@@ -45,9 +45,13 @@ public interface WeatheringCopper extends ChangeOverTimeBlock<WeatheringCopper.W
+@@ -47,9 +47,13 @@ public interface WeatheringCopper extends ChangeOverTimeBlock<WeatheringCopper.W
  
      @Override
      default Optional<BlockState> getNext(BlockState state) {
